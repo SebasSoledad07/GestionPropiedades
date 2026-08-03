@@ -131,11 +131,13 @@ Estas reglas deben implementarse y cumplirse en toda modificación:
 - [x] Manejo global de excepciones (`@RestControllerAdvice` + excepciones de dominio).
 - [x] AGENTS.md (este archivo).
 
-### FASE 2 — Reglas de negocio y dashboard (SIGUIENTE)
-- [ ] Contratos activos únicos por propiedad (regla 1).
-- [ ] Pagos únicos por período (regla 2).
-- [ ] Actualización automática de estado de propiedad (regla 3).
-- [ ] Dashboard: ingresos totales, pagos pendientes, contratos activos.
+### FASE 2 — Reglas de negocio y dashboard (COMPLETADA)
+- [x] Contratos activos únicos por propiedad (regla 1).
+- [x] Pagos únicos por período (regla 2).
+- [x] Actualización automática de estado de propiedad (regla 3).
+- [x] Dashboard: ingresos totales, pagos pendientes, contratos activos.
+- [x] Endpoints de ciclo de vida del contrato: `/api/contratos/{id}/activar`, `/finalizar`, `/cancelar`.
+- [x] Test de integración `ReglasNegocioIntegrationTest` cubriendo las 3 reglas y el dashboard.
 
 ### FASE 3 — Calidad y robustez
 - [ ] Migraciones de BD con Flyway o Liquibase (en `prod` no usar `ddl-auto=update`).

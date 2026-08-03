@@ -44,6 +44,21 @@ public class ContratoController {
         return contratoService.update(id, request);
     }
 
+    @PostMapping("/{id}/activar")
+    public ContratoResponse activar(@PathVariable Long id) {
+        return contratoService.activar(id);
+    }
+
+    @PostMapping("/{id}/finalizar")
+    public ContratoResponse finalizar(@PathVariable Long id) {
+        return contratoService.finalizar(id);
+    }
+
+    @PostMapping("/{id}/cancelar")
+    public ContratoResponse cancelar(@PathVariable Long id) {
+        return contratoService.cancelar(id);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         contratoService.delete(id);

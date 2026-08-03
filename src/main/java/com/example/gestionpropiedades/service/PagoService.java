@@ -5,6 +5,7 @@ import com.example.gestionpropiedades.dto.PagoResponse;
 import com.example.gestionpropiedades.entity.Contrato;
 import com.example.gestionpropiedades.entity.Pago;
 import com.example.gestionpropiedades.exception.ContratoNotFoundException;
+import com.example.gestionpropiedades.exception.PagoDuplicadoException;
 import com.example.gestionpropiedades.exception.PagoNotFoundException;
 import com.example.gestionpropiedades.repository.ContratoRepository;
 import com.example.gestionpropiedades.repository.PagoRepository;
@@ -54,6 +55,7 @@ public class PagoService {
     public PagoResponse create(PagoRequest request) {
         Contrato contrato = contratoRepository.findById(request.contratoId())
                 .orElseThrow(() -> new ContratoNotFoundException(request.contratoId()));
+        validatePeriodoUnico(request.contratoId(), request.periodo(), null);
 
         Pago pago = Pago.builder()
                 .contrato(contrato)
@@ -72,6 +74,7 @@ public class PagoService {
         Pago pago = getPagoOrThrow(id);
         Contrato contrato = contratoRepository.findById(request.contratoId())
                 .orElseThrow(() -> new ContratoNotFoundException(request.contratoId()));
+        validatePeriodoUnico(request.contratoId(), request.periodo(), id);
 
         pago.setContrato(contrato);
         pago.setMonto(request.monto());
@@ -92,6 +95,15 @@ public class PagoService {
     private Pago getPagoOrThrow(Long id) {
         return pagoRepository.findById(id)
                 .orElseThrow(() -> new PagoNotFoundException(id));
+    }
+
+    private void validatePeriodoUnico(Long contratoId, String periodo, Long pagoIdExcluido) {
+        boolean duplicado = pagoIdExcluido == null
+                ? pagoRepository.existsByContratoIdAndPeriodo(contratoId, periodo)
+                : pagoRepository.existsByContratoIdAndPeriodoAndIdNot(contratoId, periodo, pagoIdExcluido);
+        if (duplicado) {
+            throw new PagoDuplicadoException(contratoId, periodo);
+        }
     }
 
     private static PagoResponse toResponse(Pago pago) {

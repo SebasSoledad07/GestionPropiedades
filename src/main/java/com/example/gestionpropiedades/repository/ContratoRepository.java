@@ -11,4 +11,8 @@ public interface ContratoRepository extends JpaRepository<Contrato, Long> {
     List<Contrato> findByEstado(EstadoContrato estado);
 
     boolean existsByPropiedadIdAndEstado(Long propiedadId, EstadoContrato estado);
+
+    boolean existsByPropiedadIdAndEstadoAndIdNot(Long propiedadId, EstadoContrato estado, Long id);
+
+    long countByEstado(EstadoContrato estado);
 }
