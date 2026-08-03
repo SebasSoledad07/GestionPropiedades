@@ -51,4 +51,7 @@ public class Contrato {
     @EqualsAndHashCode.Exclude
     @Builder.Default
     private List<Pago> pagos = new ArrayList<>();
+
+    @Version
+    private Long version;
 }

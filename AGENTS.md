@@ -14,6 +14,7 @@ API RESTful en Spring Boot para gestionar propiedades en alquiler: propiedades, 
 - Spring Boot Validation
 - Spring Boot WebMVC
 - Springdoc OpenAPI 3.0.1 (Swagger UI)
+- Flyway (migraciones de BD, solo en `prod`)
 - Lombok
 - Base de datos: H2 (perfil `dev`), PostgreSQL (perfil `prod`)
 - Maven (wrapper `./mvnw`)
@@ -139,10 +140,13 @@ Estas reglas deben implementarse y cumplirse en toda modificación:
 - [x] Endpoints de ciclo de vida del contrato: `/api/contratos/{id}/activar`, `/finalizar`, `/cancelar`.
 - [x] Test de integración `ReglasNegocioIntegrationTest` cubriendo las 3 reglas y el dashboard.
 
-### FASE 3 — Calidad y robustez
-- [ ] Migraciones de BD con Flyway o Liquibase (en `prod` no usar `ddl-auto=update`).
-- [ ] Tests unitarios e integración (hoy solo `contextLoads`).
-- [ ] Control de concurrencia (`@Version` / locking) donde aplique.
+### FASE 3 — Calidad y robustez (COMPLETADA)
+- [x] Migraciones de BD con Flyway (solo perfil `prod`; `dev`/`test` usan H2 con `ddl-auto=update` y Flyway deshabilitado).
+- [x] Migración inicial `V1__create_tables.sql` que coincide con el esquema de las entidades (tablas, constraints, índices únicos).
+- [x] Tests unitarios con Mockito para todos los servicios (`*ServiceTest`).
+- [x] Test de integración `ReglasNegocioIntegrationTest` (reglas de negocio + dashboard).
+- [x] Locking optimista `@Version` en `Contrato`, `Pago` y `Propiedad`.
+- [x] Perfil `test` (`src/test/resources/application-test.yml`) + `@ActiveProfiles("test")` en tests de contexto.
 
 ### FASE 4 — Seguridad
 - [ ] Spring Security + JWT con roles.

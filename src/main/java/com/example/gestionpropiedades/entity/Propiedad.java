@@ -46,4 +46,7 @@ public class Propiedad {
 
     @Column(length = 500)
     private String descripcion;
+
+    @Version
+    private Long version;
 }

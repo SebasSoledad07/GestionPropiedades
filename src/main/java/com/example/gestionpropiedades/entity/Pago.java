@@ -53,4 +53,7 @@ public class Pago {
     @Column(nullable = false, length = 20)
     @Builder.Default
     private EstadoPago estado = EstadoPago.PENDIENTE;
+
+    @Version
+    private Long version;
 }
