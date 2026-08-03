@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: GestionPropiedades
+  profiles:
+    active: dev
+  jpa:
+    open-in-view: false
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    root: INFO
+    com.example.gestionpropiedades: DEBUG
